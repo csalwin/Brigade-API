@@ -13,11 +13,11 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('auth');
 
 Route::get('/test', function () {
-    return view('layouts.loginheader');
-});
+    return view('layouts.admin');
+})->middleware('auth');
 
 Auth::routes();
 
