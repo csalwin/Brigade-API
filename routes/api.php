@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/test', function () {
-    return response()->json(['name' => 'Abigail', 'state' => 'CA']);
+Route::group(['middleware' => ['web', 'auth']], function()
+{
+    Route::get('/test', 'UserController@get_user_from_token');
+    Route::post('/login', 'UserController@get_token_from_login');
 });
