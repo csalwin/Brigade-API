@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Redirect;
 class UserController extends Controller
 {
     public function list_users() {
-        $users = User::all('id', 'name', 'email');
+        $users = User::all('id', 'name', 'email', 'is_admin');
 
         return view('users.manage', compact('users'));
     }
@@ -25,7 +25,7 @@ class UserController extends Controller
     }
 
     public function edit($id) {
-        $users = User::where('id', $id)->select('id', 'name', 'email')->first();
+        $users = User::where('id', $id)->select('id', 'name', 'email', 'is_admin')->first();
         return view('users.edit', compact('users'));
     }
 
@@ -35,7 +35,10 @@ class UserController extends Controller
         $password2 = Input::get('password2');
         $name = Input::get('name');
         $email = Input::get('email');
+        $admin = Input::get('admin');
         $api_token = bin2hex(openssl_random_pseudo_bytes(16));
+
+        (isset($admin)) ? '1' : '0';
 
         if (isset($id)) {
             //Edit existing
@@ -47,6 +50,7 @@ class UserController extends Controller
                         ->update(
                             ['name' => $name,
                              'email' => $email,
+                             'is_admin' => $admin,
                              'password' => Hash::make($password)]
                         )) {
                         Session::flash('message', "User updated");
@@ -68,6 +72,7 @@ class UserController extends Controller
                 if(User::where('id', $id)
                     ->update(
                         ['name' => $name,
+                         'is_admin' => $admin,
                          'email' => $email]
                     )){
                     Session::flash('message', "User updated");
@@ -89,6 +94,7 @@ class UserController extends Controller
                             ['name' => $name,
                                 'email' => $email,
                                 'password' => Hash::make($password),
+                                'is_admin' => $admin,
                                 'api_token' => $api_token]
                         )) {
                         Session::flash('message', "User created");

@@ -30,7 +30,7 @@
                     <span class="title">Dashboard</span>
                 </a>
             </li>
-
+            @if($user->is_Admin == 1)
             <li class="has-sub">
                 <a href="#">
                     <i class="entypo-user"></i>
@@ -49,6 +49,7 @@
                     </li>
                 </ul>
             </li>
+            @endif
         </ul>
 
     </div>

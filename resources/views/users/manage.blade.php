@@ -13,6 +13,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Admin</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -23,6 +24,7 @@
                     <tr>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
+                        <td>@if($user->is_admin == 1)<i class="entypo-check"></i>@endif</td>
                         <td><a href="{{ url('users/edit/'.$user->id) }}"><i class="entypo-pencil"></i></a></td>
                         <td><a href="{{ url('users/delete/'.$user->id) }}" onclick="return confirm('Are you sure you want to delete this user?')"><i class="entypo-trash"></i></a></td>
                     </tr>

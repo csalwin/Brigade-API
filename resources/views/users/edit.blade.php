@@ -56,6 +56,18 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="admin" class="col-sm-3 control-label">Make Admin</label>
+
+                                    <div class="col-sm-5">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="admin" id="admin" @if($users->is_admin == 1) checked @endif>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
