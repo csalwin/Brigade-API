@@ -38,8 +38,13 @@
                 </a>
                 <ul class="visible">
                     <li>
-                        <a href="#">
+                        <a href="{{ url('/users/manage') }}">
                             <span class="title">Manage Users</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/users/create') }}">
+                            <span class="title">Create User</span>
                         </a>
                     </li>
                 </ul>

@@ -14,6 +14,6 @@ use Illuminate\Http\Request;
 */
 Route::group(['middleware' => ['web', 'auth']], function()
 {
-    Route::get('/test', 'UserController@get_user_from_token');
+    Route::get('/user', 'UserController@get_user_from_token');
     Route::post('/login', 'UserController@get_token_from_login');
 });

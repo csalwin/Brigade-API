@@ -11,14 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('auth');
-
-Route::get('/test', function () {
-    return view('layouts.admin');
-})->middleware('auth');
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/users/manage', 'UserController@list_users')->middleware('auth');
+Route::get('/users/create', 'UserController@create')->middleware('auth');
+Route::post('/users/create', 'UserController@save')->middleware('auth');
+Route::get('/users/edit/{id}', 'UserController@edit')->middleware('auth');
+Route::post('/users/edit/{id}', 'UserController@save')->middleware('auth');
+Route::get('/users/delete/{id}', 'UserController@delete')->middleware('auth');
+
+
+Route::get('/', 'HomeController@index');
