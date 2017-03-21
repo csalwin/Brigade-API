@@ -5,9 +5,6 @@
 
     <div class="row">
         <div class="col-md-12">
-            @if (Session::has('message'))
-                <div class="alert alert-info">{{ Session::get('message') }}</div>
-            @endif
             <form role="form" method="post" class="form-horizontal form-groups-bordered validate" action="">
 
                 <div class="row">
@@ -28,7 +25,7 @@
 
                                     <div class="col-sm-5">
                                         <input type="hidden" name="id" id="id" value="{{ $users->id }}">
-                                        <input type="text" class="form-control" name="name" id="name" value="{{ $users->name }}">
+                                        <input type="text" autocomplete="off" class="form-control" name="name" id="name" value="{{ $users->name }}">
                                     </div>
                                 </div>
 
@@ -36,7 +33,7 @@
                                     <label for="email" class="col-sm-3 control-label">Email</label>
 
                                     <div class="col-sm-5">
-                                        <input type="email" class="form-control" name="email" id="email" value="{{ $users->email }}">
+                                        <input type="email" autocomplete="off" class="form-control" name="email" id="email" value="{{ $users->email }}">
                                     </div>
                                 </div>
 
@@ -44,7 +41,7 @@
                                     <label for="password" class="col-sm-3 control-label">Update password</label>
 
                                     <div class="col-sm-5">
-                                        <input type="password" class="form-control" name="password" id="password">
+                                        <input type="password" autocomplete="off" class="form-control" name="password" id="password">
                                     </div>
                                 </div>
 
@@ -52,7 +49,7 @@
                                     <label for="password2" class="col-sm-3 control-label">Confirm Password</label>
 
                                     <div class="col-sm-5">
-                                        <input type="password" class="form-control" name="password2" id="password2">
+                                        <input type="password" autocomplete="off" class="form-control" name="password2" id="password2">
                                     </div>
                                 </div>
 

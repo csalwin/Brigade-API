@@ -16,17 +16,37 @@ class UserController extends Controller
 {
     public function list_users() {
         $users = User::all('id', 'name', 'email', 'is_admin');
-
-        return view('users.manage', compact('users'));
+        $currentUser = Auth::user();
+        if($currentUser->is_Admin == 1) {
+            return view('users.manage', compact('users'));
+        }
+        else {
+            Session::flash('message', "You are not authorised to view this page");
+            return redirect('/');
+        }
     }
 
     public function create() {
-        return view('users.create');
+        $currentUser = Auth::user();
+        if($currentUser->is_Admin == 1) {
+            return view('users.create');
+        }
+        else {
+            Session::flash('message', "You are not authorised to view this page");
+            return redirect('/');
+        }
     }
 
     public function edit($id) {
         $users = User::where('id', $id)->select('id', 'name', 'email', 'is_admin')->first();
-        return view('users.edit', compact('users'));
+        $currentUser = Auth::user();
+        if($currentUser->is_Admin == 1) {
+            return view('users.edit', compact('users'));
+        }
+        else {
+            Session::flash('message', "You are not authorised to view this page");
+            return redirect('/');
+        }
     }
 
     public function save() {
@@ -38,7 +58,7 @@ class UserController extends Controller
         $admin = Input::get('admin');
         $api_token = bin2hex(openssl_random_pseudo_bytes(16));
 
-        (isset($admin)) ? '1' : '0';
+        (isset($admin)) ? $admin = 1 : $admin = 0;
 
         if (isset($id)) {
             //Edit existing

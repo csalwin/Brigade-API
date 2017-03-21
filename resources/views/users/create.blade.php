@@ -5,9 +5,6 @@
 
     <div class="row">
         <div class="col-md-12">
-            @if (Session::has('message'))
-                <div class="alert alert-info">{{ Session::get('message') }}</div>
-            @endif
             <form role="form" method="post" class="form-horizontal form-groups-bordered validate" action="">
 
                 <div class="row">
