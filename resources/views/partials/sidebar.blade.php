@@ -21,11 +21,29 @@
         </header>
 
         <ul id="main-menu" class="main-menu">
-            <li>
+            <li @if(Request::path() == '/')class="active"@endif>
                 <a href="{{ url('/') }}">
                     <i class="entypo-gauge"></i>
                     <span class="title">Dashboard</span>
                 </a>
+            </li>
+            <li class="has-sub">
+                <a href="#">
+                    <i class="entypo-vcard"></i>
+                    <span class="title">Leads</span>
+                </a>
+                <ul @if(Request::path() == 'leads/view' OR Request::path() == 'leads/export')class="visible"@endif >
+                    <li @if(Request::path() == 'leads/view')class="active"@endif>
+                        <a href="{{ url('/leads/view') }}">
+                            <span class="title">View Leads</span>
+                        </a>
+                    </li>
+                    <li @if(Request::path() == 'leads/export')class="active"@endif>
+                        <a href="{{ url('/leads/export') }}">
+                            <span class="title">Export Leads</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             @if($user->is_Admin == 1)
             <li class="has-sub">
@@ -33,13 +51,13 @@
                     <i class="entypo-user"></i>
                     <span class="title">Users</span>
                 </a>
-                <ul class="visible">
-                    <li>
+                <ul @if(Request::path() == 'users/manage' OR Request::path() == 'users/create')class="visible"@endif>
+                    <li @if(Request::path() == 'users/manage')class="active"@endif>
                         <a href="{{ url('/users/manage') }}">
                             <span class="title">Manage Users</span>
                         </a>
                     </li>
-                    <li>
+                    <li @if(Request::path() == 'users/create')class="active"@endif>
                         <a href="{{ url('/users/create') }}">
                             <span class="title">Create User</span>
                         </a>
