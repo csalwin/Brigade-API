@@ -1,23 +1,20 @@
 <div class="sidebar-menu">
     <div class="sidebar-menu-inner">
         <header class="logo-env">
-            <!-- logo -->
             <div class="logo">
                 <a href="{{ url('/') }}">
                     <img src="{{ asset('images/logo@2x.png') }}" width="120" alt="" />
                 </a>
             </div>
 
-            <!-- logo collapse icon -->
             <div class="sidebar-collapse">
-                <a href="#" class="sidebar-collapse-icon"><!-- add class "with-animation" if you want sidebar to have animation during expanding/collapsing transition -->
+                <a href="#" class="sidebar-collapse-icon">
                     <i class="entypo-menu"></i>
                 </a>
             </div>
 
-            <!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
             <div class="sidebar-mobile-menu visible-xs">
-                <a href="#" class="with-animation"><!-- add class "with-animation" to support animation -->
+                <a href="#" class="with-animation">
                     <i class="entypo-menu"></i>
                 </a>
             </div>
@@ -25,7 +22,7 @@
 
         <ul id="main-menu" class="main-menu">
             <li>
-                <a href="#">
+                <a href="{{ url('/') }}">
                     <i class="entypo-gauge"></i>
                     <span class="title">Dashboard</span>
                 </a>

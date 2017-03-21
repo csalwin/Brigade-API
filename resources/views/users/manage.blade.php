@@ -2,7 +2,6 @@
 
 @section('content')
     <h2>Manage Users</h2>
-
     <div class="row">
         <div class="col-md-12">
             <table class="table responsive">
@@ -15,7 +14,6 @@
                     <th>Delete</th>
                 </tr>
                 </thead>
-
                 <tbody>
                 @foreach($users as $user)
                     <tr>

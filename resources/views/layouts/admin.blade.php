@@ -27,7 +27,10 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
-    <script src="{{ asset('js/jquery-1.11.3.min.js') }}"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
 
     <!--[if lt IE 9]><script src="{{ asset('js/ie8-responsive-file-warning.js') }}"></script><![endif]-->
 
@@ -56,15 +59,13 @@
         @include('partials.footer')
     </div>
 </div>
+<script
+        src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="{{ asset('js/gsap/TweenMax.min.js') }}"></script>
-<script src="{{ asset('js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.js') }}"></script>
-<script src="{{ asset('js/joinable.js') }}"></script>
-<script src="{{ asset('js/resizeable.js') }}"></script>
-<script src="{{ asset('js/neon-api.js') }}"></script>
 <script src="{{ asset('js/neon-custom.js') }}"></script>
-<script src="{{ asset('js/neon-demo.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
-
 </body>
 </html>
