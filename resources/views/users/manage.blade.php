@@ -29,8 +29,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-1 pull-right">
-            <a href="{{ url('users/create') }}" class="btn btn-green btn-icon btn-lg">
+        <div class="col-md-3 pull-right">
+            <a href="{{ url('users/create') }}" class="btn btn-green btn-icon btn-lg pull-right">
                 Add User
                 <i class="entypo-plus"></i>
             </a>
