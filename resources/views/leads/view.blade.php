@@ -39,7 +39,7 @@
                         <td>{{ $lead->company }}</td>
                         <td>{{ $lead->address }}</td>
                         <td>{{ $lead->telephone }}</td>
-                        <td>{{ $lead->email }}</td>
+                        <td><a href="mailto:{{ $lead->email }}">{{ $lead->email }}</a></td>
                         <td>{{ $lead->fleet }}</td>
                         <td>{{ $lead->industry }}</td>
                         <td>{{ $lead->customerType }}</td>
@@ -52,7 +52,7 @@
                         <td>{{ $lead->notes }}</td>
                         <td>{{ $lead->created_at }}</td>
                         <td>{{ $lead->updated_at }}</td>
-                        <td><img src="{{ $lead->image  }}" height="100" width="100" /></td>
+                        <td><a href="{{ $lead->image  }}" data-lightbox="image-{{ $loop->iteration }}"><img src="{{ $lead->image  }}" height="100" width="100" /></a></td>
                         <td><a href="{{ url('leads/delete/'.$lead->id) }}" onclick="return confirm('Are you sure you want to delete this lead?')"><i class="entypo-trash"></i></a></td>
                     </tr>
                 @endforeach
@@ -60,4 +60,12 @@
             </table>
         </div>
     </div>
+@endsection
+
+@section('css')
+    <link href="{{ asset('css/lightbox.css') }}" rel="stylesheet">
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/lightbox.js') }}"></script>
 @endsection

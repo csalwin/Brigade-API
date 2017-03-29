@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('css/neon-theme.css') }}">
     <link rel="stylesheet" href="{{ asset('css/neon-forms.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    @yield('css')
 
     <!-- Scripts -->
     <script>
@@ -64,5 +65,6 @@
 <script src="{{ asset('js/neon-api.js') }}"></script>
 <script src="{{ asset('js/neon-custom.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
+@yield('scripts')
 </body>
 </html>
