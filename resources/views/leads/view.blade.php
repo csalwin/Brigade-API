@@ -32,6 +32,9 @@
                 </thead>
                 <tbody>
                 @foreach($leads as $lead)
+                    @php($fleet = explode(',', $lead->fleet))
+                    @php($customerType = explode(',', $lead->customerType))
+                    @php($productInterest = explode(',', $lead->productInterest))
                     <tr>
                         <td>{{ $lead->username }}</td>
                         <td>{{ $lead->leadsource }}</td>
@@ -40,13 +43,25 @@
                         <td>{{ $lead->address }}</td>
                         <td>{{ $lead->telephone }}</td>
                         <td><a href="mailto:{{ $lead->email }}">{{ $lead->email }}</a></td>
-                        <td>{{ $lead->fleet }}</td>
+                        <td>
+                            @foreach($fleet as $fleetSingle)
+                                {{ $fleetSingle }}<br />
+                            @endforeach
+                        </td>
                         <td>{{ $lead->industry }}</td>
-                        <td>{{ $lead->customerType }}</td>
-                        <td>{{ $lead->productInterest }}</td>
-                        <td>{{ $lead->productInterest }}</td>
-                        <td>{{ $lead->subscribeNewsletters }}</td>
-                        <td>{{ $lead->subscribeBrochures }}</td>
+                        <td>
+                            @foreach($customerType as $customerSingle)
+                                {{ $customerSingle }}<br />
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach($productInterest as $productSingle)
+                                {{ $productSingle }}<br />
+                            @endforeach
+                        </td>
+                        <td>{{ $lead->productNotes }}</td>
+                        <td>@if($lead->subscribeNewsletters == 1)<i class="entypo-check"></i>@endif</td>
+                        <td>@if($lead->subscribeBrochures == 1)<i class="entypo-check"></i>@endif</td>
                         <td>{{ $lead->nextAction }}</td>
                         <td>{{ $lead->urgency }}</td>
                         <td>{{ $lead->notes }}</td>
@@ -62,10 +77,10 @@
     </div>
 @endsection
 
-@section('css')
+@push('css')
     <link href="{{ asset('css/lightbox.css') }}" rel="stylesheet">
-@endsection
+@endpush
 
-@section('scripts')
+@push('scripts')
     <script src="{{ asset('js/lightbox.js') }}"></script>
-@endsection
+@endpush
