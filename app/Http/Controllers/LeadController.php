@@ -61,6 +61,7 @@ class LeadController extends Controller
         $lead->address = $request->address;
         $lead->telephone = $request->telephone;
         $lead->email = $request->email;
+        $lead->fleetSize = $request->fleetSize;
         $lead->fleet = $request->fleet;
         $lead->industry = $request->industry;
         $lead->customerType = $request->customerType;
@@ -95,6 +96,7 @@ class LeadController extends Controller
         $lead->address = $request->address;
         $lead->telephone = $request->telephone;
         $lead->email = $request->email;
+        $lead->fleetSize = $request->fleetSize;
         $lead->fleet = $request->fleet;
         $lead->industry = $request->industry;
         $lead->customerType = $request->customerType;
