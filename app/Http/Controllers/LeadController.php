@@ -86,6 +86,11 @@ class LeadController extends Controller
         $leads = leads::all();
         return $leads;
     }
+    public function api_userList(Request $request) {
+        $user = $request->userID;
+        $leads = leads::where('userID', $user)->get();
+        return $leads;
+    }
 
     public function api_edit(Request $request) {
         $lead = leads::find($request->id);
