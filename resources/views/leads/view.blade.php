@@ -11,14 +11,16 @@
                     <th>Lead Source</th>
                     <th>Name</th>
                     <th>Company</th>
+                    <th>Job Title</th>
                     <th>Address</th>
                     <th>Telephone</th>
+                    <th>Mobile</th>
                     <th>Email</th>
+                    <th>Fleet Size</th>
                     <th>Fleet</th>
                     <th>Industry</th>
                     <th>Customer Type</th>
                     <th>Product Interest</th>
-                    <th>Product Notes</th>
                     <th>Newsletter</th>
                     <th>Brochures</th>
                     <th>Next Action</th>
@@ -40,14 +42,19 @@
                         <td>{{ $lead->leadsource }}</td>
                         <td>{{ $lead->name }}</td>
                         <td>{{ $lead->company }}</td>
+                        <td>{{ $lead->jobTitle }}</td>
                         <td>{{ $lead->address }}</td>
                         <td>{{ $lead->telephone }}</td>
+                        <td>{{ $lead->mobile }}</td>
                         <td><a href="mailto:{{ $lead->email }}">{{ $lead->email }}</a></td>
+                        <td>{{ $lead->fleetSize }}</td>
                         <td>
                             @foreach($fleet as $fleetSingle)
                                 {{ $fleetSingle }}<br />
                             @endforeach
                         </td>
+
+
                         <td>{{ $lead->industry }}</td>
                         <td>
                             @foreach($customerType as $customerSingle)
@@ -59,7 +66,7 @@
                                 {{ $productSingle }}<br />
                             @endforeach
                         </td>
-                        <td>{{ $lead->productNotes }}</td>
+
                         <td>@if($lead->subscribeNewsletters == 1)<i class="entypo-check"></i>@endif</td>
                         <td>@if($lead->subscribeBrochures == 1)<i class="entypo-check"></i>@endif</td>
                         <td>{{ $lead->nextAction }}</td>

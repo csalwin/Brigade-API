@@ -14,7 +14,7 @@ class LeadController extends Controller
     public function index() {
         $leads = leads
             ::join('users', 'users.id', '=', 'leads.userID')
-            ->get(array('users.name as username', 'leads.leadsource', 'leads.id', 'leads.name as name', 'company', 'address', 'telephone', 'leads.email as email', 'fleet', 'industry', 'customerType', 'productInterest', 'productNotes', 'subscribeNewsletters', 'subscribeBrochures', 'nextAction', 'urgency', 'notes', 'image', 'leads.created_at', 'leads.updated_at'));
+            ->get(array('users.name as username', 'leads.leadsource', 'leads.id', 'leads.name as name', 'company', 'jobTitle', 'address', 'telephone', 'mobile', 'leads.email as email', 'fleetSize', 'fleet', 'industry', 'customerType', 'productInterest', 'subscribeNewsletters', 'subscribeBrochures', 'nextAction', 'urgency', 'notes', 'image', 'leads.created_at', 'leads.updated_at'));
 
         return view('leads.view', compact('leads'));
     }
@@ -22,7 +22,8 @@ class LeadController extends Controller
     public function export() {
         $leads = leads
             ::join('users', 'users.id', '=', 'leads.userID')
-            ->get(array('users.name as username', 'leads.leadsource', 'leads.name as name', 'company', 'address', 'telephone', 'leads.email as email', 'fleet', 'industry', 'customerType', 'productInterest', 'productNotes', 'subscribeNewsletters', 'subscribeBrochures', 'nextAction', 'urgency', 'notes', 'leads.created_at', 'leads.updated_at'));
+            ->get(array('users.name as username', 'leads.leadsource', 'leads.name as name', 'company', 'jobTitle', 'address', 'telephone', 'mobile', 'leads.email as email', 'fleetSize', 'fleet', 'industry', 'customerType', 'productInterest', 'subscribeNewsletters', 'subscribeBrochures', 'nextAction', 'urgency', 'notes', 'leads.created_at', 'leads.updated_at'));
+
 
         $filename = 'Lead Export - '.date("d-m-y_G-i-s");
         Excel::create($filename, function($excel) use($leads) {
@@ -33,7 +34,7 @@ class LeadController extends Controller
                 $sheet->freezeFirstRow();
                 $sheet->fromArray($leads);
                 $sheet->row(1, array(
-                    'User', 'Lead Source', 'Name', 'Company', 'Address', 'Telephone', 'Email', 'Fleet', 'Industry', 'Customer Type', 'Product Interest', 'Product Notes', 'Subscribe to Newsletter', 'Subscribe to Brochures', 'Next Action', 'Urgency', 'Notes', 'Created At', 'Updated At'
+                    'User', 'Lead Source', 'Name', 'Company','Job Title', 'Address', 'Telephone', 'Mobile', 'Email', 'Fleet Size', 'Fleet', 'Industry', 'Customer Type', 'Product Interest', 'Subscribe to Newsletter', 'Subscribe to Brochures', 'Next Action', 'Urgency', 'Notes', 'Created At', 'Updated At'
                 ));
             });
         })->download('xlsx');
@@ -58,8 +59,10 @@ class LeadController extends Controller
         $lead->leadSource = $request->leadSource;
         $lead->name = $request->name;
         $lead->company = $request->company;
+        $lead->jobTitle = $request->jobTitle;
         $lead->address = $request->address;
         $lead->telephone = $request->telephone;
+        $lead->mobile = $request->mobile;
         $lead->email = $request->email;
         $lead->fleetSize = $request->fleetSize;
         $lead->fleet = $request->fleet;
@@ -98,8 +101,10 @@ class LeadController extends Controller
         $lead->leadSource = $request->leadSource;
         $lead->name = $request->name;
         $lead->company = $request->company;
+        $lead->jobTitle = $request->jobTitle;
         $lead->address = $request->address;
         $lead->telephone = $request->telephone;
+        $lead->mobile = $request->mobile;
         $lead->email = $request->email;
         $lead->fleetSize = $request->fleetSize;
         $lead->fleet = $request->fleet;

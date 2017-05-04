@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class MoreLeadsUpdated extends Migration
+class AddNewLeadFields extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class MoreLeadsUpdated extends Migration
     public function up()
     {
         Schema::table('leads', function (Blueprint $table) {
-            $table->string('fleetSize')->nullable()->after('email');
+            $table->string('mobile')->nullable()->after('telephone');
+            $table->string('jobTitle')->nullable()->after('company');
         });
     }
 
