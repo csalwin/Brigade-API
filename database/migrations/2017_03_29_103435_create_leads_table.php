@@ -25,12 +25,16 @@ class CreateLeadsTable extends Migration
             $table->string('email');
             $table->string('fleet');
             $table->string('industry');
+            $table->string('industryOther');
             $table->string('customerType');
+            $table->string('customerTypeOther');
             $table->string('productInterest');
+            $table->string('productInterestOther');
             $table->text('productNotes');
             $table->integer('subscribeNewsletters');
             $table->integer('subscribeBrochures');
             $table->text('nextAction');
+            $table->text('nextActionOther');
             $table->string('urgency');
             $table->text('notes');
         });

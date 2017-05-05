@@ -1,9 +1,39 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h1>All Leads</h1>
+
+
+
+
+        @if ($currentUser)
+            <h1>{{ $currentUser[0]->name }} Leads</h1>
+        @else
+            <h1>All Leads</h1>
+        @endif
+
     <div class="row">
         <div class="col-md-12">
+
+            <select name="users" id="users">
+                    <option value="">All</option>
+                @foreach($users as $user)
+                    @if ($user->id == $id)
+                        <option selected value="{{$user->id}}">{{$user->name}}</option>
+                    @else
+                        <option value="{{$user->id}}">{{$user->name}}</option>
+                    @endif
+
+                @endforeach
+            </select>
+            <script>
+                var base_url = '{{ url('/leads/view') }}';
+
+                function goToPage() {
+                    var page = document.getElementById('users').value;
+                    window.location = base_url + '/' + page;
+                }
+            </script>
+            <button onclick="goToPage()">Filter</button>
             <table class="table responsive">
                 <thead>
                 <tr>
@@ -19,11 +49,14 @@
                     <th>Fleet Size</th>
                     <th>Fleet</th>
                     <th>Industry</th>
+                    <th>Industry Other</th>
                     <th>Customer Type</th>
                     <th>Product Interest</th>
+                    <th>Product Interest Other</th>
                     <th>Newsletter</th>
                     <th>Brochures</th>
                     <th>Next Action</th>
+                    <th>Next Action Other</th>
                     <th>Urgency</th>
                     <th>Notes</th>
                     <th>Created At</th>
@@ -56,20 +89,25 @@
 
 
                         <td>{{ $lead->industry }}</td>
+                        <td>{{ $lead->industryOther }}</td>
                         <td>
                             @foreach($customerType as $customerSingle)
                                 {{ $customerSingle }}<br />
                             @endforeach
                         </td>
+                        <td>{{ $lead->customerTypeOther }}</td>
+
                         <td>
                             @foreach($productInterest as $productSingle)
                                 {{ $productSingle }}<br />
                             @endforeach
                         </td>
+                        <td>{{ $lead->productInterestOther }}</td>
 
-                        <td>@if($lead->subscribeNewsletters == 1)<i class="entypo-check"></i>@endif</td>
-                        <td>@if($lead->subscribeBrochures == 1)<i class="entypo-check"></i>@endif</td>
+                        <td>@if($lead->subscribeNewsletters == true)<i class="entypo-check"></i>@endif</td>
+                        <td>@if($lead->subscribeBrochures == true)<i class="entypo-check"></i>@endif</td>
                         <td>{{ $lead->nextAction }}</td>
+                        <td>{{ $lead->nextActionOther }}</td>
                         <td>{{ $lead->urgency }}</td>
                         <td>{{ $lead->notes }}</td>
                         <td>{{ $lead->created_at }}</td>

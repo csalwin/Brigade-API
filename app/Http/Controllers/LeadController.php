@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\leads;
+use App\User;
+
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -11,18 +13,37 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class LeadController extends Controller
 {
-    public function index() {
-        $leads = leads
-            ::join('users', 'users.id', '=', 'leads.userID')
-            ->get(array('users.name as username', 'leads.leadsource', 'leads.id', 'leads.name as name', 'company', 'jobTitle', 'address', 'telephone', 'mobile', 'leads.email as email', 'fleetSize', 'fleet', 'industry', 'customerType', 'productInterest', 'subscribeNewsletters', 'subscribeBrochures', 'nextAction', 'urgency', 'notes', 'image', 'leads.created_at', 'leads.updated_at'));
+    public function index($id = null) {
 
-        return view('leads.view', compact('leads'));
+        $users = User::all();
+        $currentUser = null;
+
+        if ($id){
+            $currentUser = User::where('users.id', $id)->get();
+        }
+
+        if ($id){
+            $leads = leads
+                ::join('users', 'users.id', '=', 'leads.userID')
+                ->where('leads.userID', $id)
+                ->get(array('users.name as username', 'leads.leadsource', 'leads.id', 'leads.name as name', 'company', 'jobTitle', 'address', 'telephone', 'mobile', 'leads.email as email', 'fleetSize', 'fleet', 'industry', 'industryOther', 'customerType','customerTypeOther', 'productInterest', 'productInterestOther', 'subscribeNewsletters', 'subscribeBrochures', 'nextAction', 'nextActionOther', 'urgency', 'notes', 'image', 'leads.created_at', 'leads.updated_at'));
+        }else {
+            $leads = leads
+                ::join('users', 'users.id', '=', 'leads.userID')
+                ->get(array('users.name as username', 'leads.leadsource', 'leads.id', 'leads.name as name', 'company', 'jobTitle', 'address', 'telephone', 'mobile', 'leads.email as email', 'fleetSize', 'fleet', 'industry', 'industryOther', 'customerType','customerTypeOther', 'productInterest', 'productInterestOther', 'subscribeNewsletters', 'subscribeBrochures', 'nextAction', 'nextActionOther', 'urgency', 'notes', 'image', 'leads.created_at', 'leads.updated_at'));
+
+        }
+//        $leads = leads
+//            ::join('users', 'users.id', '=', 'leads.userID')
+//            ->get(array('users.name as username', 'leads.leadsource', 'leads.id', 'leads.name as name', 'company', 'jobTitle', 'address', 'telephone', 'mobile', 'leads.email as email', 'fleetSize', 'fleet', 'industry', 'industryOther', 'customerType','customerTypeOther', 'productInterest', 'productInterestOther', 'subscribeNewsletters', 'subscribeBrochures', 'nextAction', 'nextActionOther', 'urgency', 'notes', 'image', 'leads.created_at', 'leads.updated_at'));
+
+        return view('leads.view', compact('leads', 'users', 'id', 'currentUser'));
     }
 
     public function export() {
         $leads = leads
             ::join('users', 'users.id', '=', 'leads.userID')
-            ->get(array('users.name as username', 'leads.leadsource', 'leads.name as name', 'company', 'jobTitle', 'address', 'telephone', 'mobile', 'leads.email as email', 'fleetSize', 'fleet', 'industry', 'customerType', 'productInterest', 'subscribeNewsletters', 'subscribeBrochures', 'nextAction', 'urgency', 'notes', 'leads.created_at', 'leads.updated_at'));
+            ->get(array('users.name as username', 'leads.leadsource', 'leads.name as name', 'company', 'jobTitle', 'address', 'telephone', 'mobile', 'leads.email as email', 'fleetSize', 'fleet', 'industry', 'industryOther', 'customerType','customerTypeOther', 'productInterest', 'productInterestOther', 'subscribeNewsletters', 'subscribeBrochures', 'nextAction', 'nextActionOther', 'urgency', 'notes', 'leads.created_at', 'leads.updated_at'));
 
 
         $filename = 'Lead Export - '.date("d-m-y_G-i-s");
@@ -34,7 +55,7 @@ class LeadController extends Controller
                 $sheet->freezeFirstRow();
                 $sheet->fromArray($leads);
                 $sheet->row(1, array(
-                    'User', 'Lead Source', 'Name', 'Company','Job Title', 'Address', 'Telephone', 'Mobile', 'Email', 'Fleet Size', 'Fleet', 'Industry', 'Customer Type', 'Product Interest', 'Subscribe to Newsletter', 'Subscribe to Brochures', 'Next Action', 'Urgency', 'Notes', 'Created At', 'Updated At'
+                    'User', 'Lead Source', 'Name', 'Company','Job Title', 'Address', 'Telephone', 'Mobile', 'Email', 'Fleet Size', 'Fleet', 'Industry', 'Industry Other', 'Customer Type' , 'Customer Type Other', 'Product Interest','Product Interest Other', 'Subscribe to Newsletter', 'Subscribe to Brochures', 'Next Action','Next Action Other', 'Urgency', 'Notes', 'Created At', 'Updated At', 'Account Manager'
                 ));
             });
         })->download('xlsx');
@@ -67,12 +88,16 @@ class LeadController extends Controller
         $lead->fleetSize = $request->fleetSize;
         $lead->fleet = $request->fleet;
         $lead->industry = $request->industry;
+        $lead->industryOther = $request->industryOther;
         $lead->customerType = $request->customerType;
+        $lead->customerTypeOther = $request->customerTypeOther;
         $lead->productInterest = $request->productInterest;
+        $lead->productInterestOther = $request->productInterestOther;
         $lead->productNotes = $request->productNotes;
         $lead->subscribeNewsletters = $request->subscribeNewsletters;
         $lead->subscribeBrochures = $request->subscribeBrochures;
         $lead->nextAction = $request->nextAction;
+        $lead->nextActionOther = $request->nextActionOther;
         $lead->urgency = $request->urgency;
         $lead->notes = $request->notes;
         $lead->image = $request->image;
@@ -109,12 +134,16 @@ class LeadController extends Controller
         $lead->fleetSize = $request->fleetSize;
         $lead->fleet = $request->fleet;
         $lead->industry = $request->industry;
+        $lead->industryOther = $request->industryOther;
         $lead->customerType = $request->customerType;
+        $lead->customerTypeOther = $request->customerTypeOther;
         $lead->productInterest = $request->productInterest;
+        $lead->productInterestOther = $request->productInterestOther;
         $lead->productNotes = $request->productNotes;
         $lead->subscribeNewsletters = $request->subscribeNewsletters;
         $lead->subscribeBrochures = $request->subscribeBrochures;
         $lead->nextAction = $request->nextAction;
+        $lead->nextActionOther = $request->nextActionOther;
         $lead->urgency = $request->urgency;
         $lead->notes = $request->notes;
         $lead->image = $request->image;
