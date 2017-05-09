@@ -35,7 +35,7 @@ class CreateLeadsTable extends Migration
             $table->integer('subscribeBrochures');
             $table->text('nextAction');
             $table->text('nextActionOther');
-            $table->string('urgency');
+            $table->string('accountManager');
             $table->text('notes');
         });
     }

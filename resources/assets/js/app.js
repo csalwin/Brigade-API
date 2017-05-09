@@ -18,3 +18,15 @@ require('./bootstrap');
 const app = new Vue({
     el: '#app'
 });
+
+
+
+function exportLeads() {
+    // var selectedLeads = new Array();
+    // $("input:checked").each(function() {
+    //     data['selectedLeads[]'].push($(this).val());
+    // });
+    console.log('Export leads');
+}
+
+

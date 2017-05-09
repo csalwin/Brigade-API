@@ -22,6 +22,8 @@ Route::get('/users/delete/{id}', 'UserController@delete')->middleware('auth');
 
 Route::get('/leads/view/{id?}', 'LeadController@index')->middleware('auth');
 Route::get('/leads/export/{id?}', 'LeadController@export')->middleware('auth');
+Route::post('/leads/export/selected', 'LeadController@exportSelected')->middleware('auth');
+Route::post('/leads/deleteleads', 'LeadController@deleteLeads')->middleware('auth');
 Route::get('/leads/delete/{id}', 'LeadController@delete')->middleware('auth');
 
 
