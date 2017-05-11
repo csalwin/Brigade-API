@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\leads;
 use App\User;
 
+use DateTime;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
@@ -39,6 +41,11 @@ class LeadController extends Controller
                 ->get(array('users.name as username', 'leads.leadsource', 'leads.id', 'leads.name as name', 'company', 'jobTitle', 'address', 'telephone', 'mobile', 'leads.email as email', 'fleetSize', 'fleet', 'industry', 'industryOther', 'customerType','customerTypeOther', 'productInterest', 'productInterestOther', 'subscribeNewsletters', 'subscribeBrochures', 'nextAction', 'nextActionOther', 'accountManager', 'notes', 'image', 'leads.created_at', 'leads.updated_at'));
 
         }
+
+
+
+
+
 //        $leads = leads
 //            ::join('users', 'users.id', '=', 'leads.userID')
 //            ->get(array('users.name as username', 'leads.leadsource', 'leads.id', 'leads.name as name', 'company', 'jobTitle', 'address', 'telephone', 'mobile', 'leads.email as email', 'fleetSize', 'fleet', 'industry', 'industryOther', 'customerType','customerTypeOther', 'productInterest', 'productInterestOther', 'subscribeNewsletters', 'subscribeBrochures', 'nextAction', 'nextActionOther', 'urgency', 'notes', 'image', 'leads.created_at', 'leads.updated_at'));
@@ -158,6 +165,16 @@ class LeadController extends Controller
     public function api_userList(Request $request) {
         $user = $request->userID;
         $leads = leads::where('userID', $user)->get();
+
+
+        foreach ($leads as $lead) {
+            $updated_at = new DateTime( $lead->updated_at->toDateTimeString());
+            $lead->updated_atConv = $updated_at->format('m/d/Y H:i:s');
+
+        }
+
+
+
         return $leads;
     }
 

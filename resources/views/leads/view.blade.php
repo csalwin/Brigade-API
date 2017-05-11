@@ -95,7 +95,7 @@
                     <th>Mobile</th>
                     <th>Email</th>
                     <th>Fleet Size</th>
-                    <th>Fleet</th>
+                    <th>Vehicle Type</th>
                     <th>Industry</th>
                     <th>Industry Other</th>
                     <th>Customer Type</th>
@@ -121,7 +121,7 @@
                     @php($customerType = explode(',', $lead->customerType))
                     @php($productInterest = explode(',', $lead->productInterest))
 
-                    <?php
+<?php
                         $created_at = new DateTime($lead->created_at);
                         $tz = new DateTimeZone('Europe/London'); // or whatever zone you're after
                         $created_at->setTimezone($tz);
@@ -129,7 +129,7 @@
                         $updated_at = new DateTime($lead->updated_at);
                         $tzone = new DateTimeZone('Europe/London'); // or whatever zone you're after
                         $updated_at->setTimezone($tzone);
-                    ?>
+                  ?>
 
 
 
@@ -168,14 +168,14 @@
                         </td>
                         <td>{{ $lead->productInterestOther }}</td>
 
-                        <td>@if($lead->subscribeNewsletters == true)<i class="entypo-check"></i>@endif</td>
-                        <td>@if($lead->subscribeBrochures == true)<i class="entypo-check"></i>@endif</td>
+                        <td>@if($lead->subscribeNewsletters == "true")<i class="entypo-check"></i>@endif</td>
+                        <td>@if($lead->subscribeBrochures == "true")<i class="entypo-check"></i>@endif</td>
                         <td>{{ $lead->nextAction }}</td>
                         <td>{{ $lead->nextActionOther }}</td>
                         <td>{{ $lead->accountManager }}</td>
                         <td>{{ $lead->notes }}</td>
-                        <td>{{ $created_at->format('Y-m-d H:i:s') }}</td>
-                        <td>{{ $updated_at->format('Y-m-d H:i:s') }}</td>
+                        <td>{{ $created_at->format('d-m-Y H:i:s') }}</td>
+                        <td>{{ $updated_at->format('d-m-Y H:i:s') }}</td>
                         <td><a href="{{ $lead->image  }}" data-lightbox="image-{{ $loop->iteration }}"><img src="{{ $lead->image  }}" height="100" width="100" /></a></td>
                         <td><a href="{{ url('leads/delete/'.$lead->id) }}" onclick="return confirm('Are you sure you want to delete this lead?')"><i class="entypo-trash"></i></a></td>
                     </tr>

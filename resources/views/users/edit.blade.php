@@ -57,6 +57,7 @@
                 </div>
                 <div class="form-group default-padding">
                     <button type="submit" class="btn btn-success">Save Changes</button>
+                    <a type="button" href="{{ url('/users/manage') }}" class="btn btn-default">Cancel</a>
                 </div>
             </form>
         </div>
