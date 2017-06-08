@@ -80,7 +80,9 @@
 
             <button onclick="goToPage()">Filter</button><br/><br/>
             <button onclick="exportLeads()">Export Selected</button>
+            @if( Auth::user()->is_Admin == 1)
             <button onclick="deleteLeads()">Delete Selected</button>
+            @endif
             <table class="table responsive">
                 <thead>
                 <tr>
@@ -111,7 +113,9 @@
                     <th>Created At</th>
                     <th>Updated At</th>
                     <th>Image</th>
+                    @if( Auth::user()->is_Admin == 1)
                     <th>Delete</th>
+                    @endif
                 </tr>
                 </thead>
                 <tbody>
@@ -177,7 +181,7 @@
                         <td>{{ $created_at->format('d-m-Y H:i:s') }}</td>
                         <td>{{ $updated_at->format('d-m-Y H:i:s') }}</td>
                         <td><a href="{{ $lead->image  }}" data-lightbox="image-{{ $loop->iteration }}"><img src="{{ $lead->image  }}" height="100" width="100" /></a></td>
-                        <td><a href="{{ url('leads/delete/'.$lead->id) }}" onclick="return confirm('Are you sure you want to delete this lead?')"><i class="entypo-trash"></i></a></td>
+                        @if( Auth::user()->is_Admin == 1)<td><a href="{{ url('leads/delete/'.$lead->id) }}" onclick="return confirm('Are you sure you want to delete this lead?')"><i class="entypo-trash"></i></a></td>@endif
                     </tr>
 
                 @endforeach
